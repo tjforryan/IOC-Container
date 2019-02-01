@@ -6,16 +6,17 @@
   "author": "Tom Forryan <tjforryan@yahoo.co.uk>",
   "license": "MIT",
   "scripts": {
-    "example": "node ./examples/nestedInjection",
-    "lint": "eslint '**/*.js' --fix",
-    "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'",
-    "example": "ts-node examples/*"
+    "example": "ts-node examples/nestedInjection.ts",
+    "lint": "eslint '**/*.ts' --fix",
+    "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'"
   },
   "dependencies": {
     "ts-node": "^8.0.2",
-    "typescript": "^3.3.1"
+    "typescript": "3.2.1"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.2.0",
+    "@typescript-eslint/parser": "^1.2.0",
     "chai": "^4.2.0",
     "eslint": "^5.12.1",
     "eslint-config-prettier": "^4.0.0",
@@ -31,7 +32,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,md}": [
+    "*.{js,ts}": [
       "prettier --write",
       "yarn lint",
       "git add"
