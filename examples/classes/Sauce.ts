@@ -1,4 +1,4 @@
-import { Ingredient } from '../interfaces';
+import { Ingredient } from '../examples';
 
 export default class Sauce implements Ingredient {
   public apply(): string {

@@ -1,4 +1,4 @@
-import { Dish, Restaurant } from '../interfaces';
+import { Dish, Restaurant } from '../examples';
 
 export default class GreasySpoon implements Restaurant {
   public special: Dish;
@@ -8,7 +8,7 @@ export default class GreasySpoon implements Restaurant {
 
   public serveOrder(): void {
     console.info(
-      `Handed over ${this.special.serve()}, covered in far too much grease!`
+      `Handed over ${this.special.serve()}, shining from too much grease!`
     );
   }
 }

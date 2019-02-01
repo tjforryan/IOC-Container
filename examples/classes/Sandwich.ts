@@ -1,4 +1,4 @@
-import { Dish, Ingredient } from '../interfaces';
+import { Dish, Ingredient } from '../examples';
 
 export default class Sandwich implements Dish {
   public secretIngredient: Ingredient;

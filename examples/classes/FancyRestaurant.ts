@@ -1,4 +1,4 @@
-import { Dish, Restaurant } from '../interfaces';
+import { Dish, Restaurant } from '../examples';
 
 export default class FancyRestaurant implements Restaurant {
   public special: Dish;
