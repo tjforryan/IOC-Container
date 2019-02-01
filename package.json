@@ -1,5 +1,5 @@
 {
-  "name": "IOC-Container",
+  "name": "ioc-container",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/tjforryan/IOC-Container.git",
