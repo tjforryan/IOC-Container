@@ -8,13 +8,16 @@
   "scripts": {
     "example": "ts-node examples/nestedInjection.ts",
     "lint": "eslint '**/*.ts' --fix",
-    "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'"
+    "test": "mocha --require ts-node/register --recursive --reporter dot 'tests/**/*.test.ts'",
+    "prettier": "prettier --write **/*.ts **/*.js"
   },
   "dependencies": {
     "ts-node": "^8.0.2",
     "typescript": "3.2.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
     "@typescript-eslint/eslint-plugin": "^1.2.0",
     "@typescript-eslint/parser": "^1.2.0",
     "chai": "^4.2.0",
