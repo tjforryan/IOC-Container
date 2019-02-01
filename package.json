@@ -6,8 +6,8 @@
   "author": "Tom Forryan <tjforryan@yahoo.co.uk>",
   "license": "MIT",
   "scripts": {
-    "start": "node index",
-    "lint": "eslint '**/*.js'",
+    "example": "node ./examples/nestedInjection",
+    "lint": "eslint '**/*.js' --fix",
     "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'"
   },
   "dependencies": {},
@@ -29,7 +29,7 @@
   "lint-staged": {
     "*.{js,md}": [
       "prettier --write",
-      "yarn lint --fix",
+      "yarn lint",
       "git add"
     ]
   }
