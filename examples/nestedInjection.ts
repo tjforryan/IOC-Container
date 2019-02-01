@@ -1,11 +1,16 @@
-import Meal from './classes/Meal';
-import Menu from './classes/Menu';
-import Chef from './classes/Chef';
-import Restaurant from './classes/Restaurant';
+import Sauce from './classes/Sauce';
+import Sandwich from './classes/Sandwich';
+import FancyRestaurant from './classes/FancyRestaurant';
+import GreasySpoon from './classes/GreasySpoon';
+import Pizza from './classes/Pizza';
+import Salad from './classes/Salad';
 
-const myRestaurant = new Restaurant(
-  new Chef('Derek'),
-  new Menu(new Meal('Fish and Chips', 'Battered Cod', 'Triple Cooked Chips'))
-);
+new FancyRestaurant(new Sandwich(new Sauce())).serveOrder();
 
-myRestaurant.cookSpecial();
+console.info();
+
+new GreasySpoon(new Pizza(new Salad())).serveOrder();
+
+console.info();
+
+new GreasySpoon(new Sandwich(new Salad())).serveOrder();
