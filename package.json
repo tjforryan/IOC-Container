@@ -8,9 +8,13 @@
   "scripts": {
     "example": "node ./examples/nestedInjection",
     "lint": "eslint '**/*.js' --fix",
-    "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'"
+    "test": "mocha --recursive --reporter dot 'tests/**/*.test.js'",
+    "example": "ts-node examples/*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.1"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
     "eslint": "^5.12.1",

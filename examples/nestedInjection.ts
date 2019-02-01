@@ -1,5 +1,8 @@
 class Meal {
-  constructor(name, main, side) {
+  name: string;
+  main: string;
+  side: string;
+  constructor(name: string, main: string, side: string) {
     this.name = name;
     this.main = main;
     this.side = side;
@@ -7,19 +10,23 @@ class Meal {
 }
 
 class Menu {
-  constructor(special) {
+  special: Meal
+  constructor(special: Meal) {
     this.special = special;
   }
 }
 
 class Chef {
-  constructor(name) {
+  name: string;
+  constructor(name: string) {
     this.name = name;
   }
 }
 
 class Restaurant {
-  constructor(chef, menu) {
+  menu: Menu;
+  chef: Chef;
+  constructor(chef: Chef, menu: Menu) {
     this.menu = menu;
     this.chef = chef;
   }
