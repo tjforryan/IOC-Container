@@ -89,6 +89,29 @@ describe('IOCContainer', () => {
       );
     });
 
+    it('will still resolve with bound dependencies, even after a new dependency is registered', () => {
+      const container = new IOCContainer();
+      const TEST_KEY = 'TEST_KEY';
+      const DEPENDENCY_KEY = 'DEPENDENCY_KEY';
+      const DEP_DEPENDENCY_KEY = 'DEP_DEPENDENCY_KEY';
+
+      container.register(TEST_KEY, FancyRestaurant);
+      container.register(DEPENDENCY_KEY, Sandwich);
+      container.register(DEP_DEPENDENCY_KEY, Sauce);
+
+      container.bindDependency(TEST_KEY, DEPENDENCY_KEY, 0);
+      container.bindDependency(DEPENDENCY_KEY, DEP_DEPENDENCY_KEY, 0);
+
+      container.register(DEPENDENCY_KEY, Pizza);
+
+      const instance = container.resolve(TEST_KEY) as Restaurant;
+
+      expect(instance).to.be.an.instanceof(FancyRestaurant);
+      expect(instance.serveOrder()).to.equal(
+        'Served cheesy, doughy goodness covered in a smattering of tasty sauce - but in style!'
+      );
+    });
+
     it('will fail to bind unregistered dependency', () => {
       const container = new IOCContainer();
       const TEST_KEY = 'TEST_KEY';

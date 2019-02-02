@@ -6,7 +6,8 @@
   "author": "Tom Forryan <tjforryan@yahoo.co.uk>",
   "license": "MIT",
   "scripts": {
-    "example": "ts-node examples/nestedInjection.ts",
+    "exampleContainer": "ts-node examples/usingContainer.ts",
+    "exampleNested": "ts-node examples/nestedInjection.ts",
     "lint": "eslint '**/*.ts' --fix",
     "test": "mocha --require ts-node/register --recursive --reporter dot 'tests/**/*.test.ts'",
     "prettier": "prettier --write **/*.ts **/*.js"

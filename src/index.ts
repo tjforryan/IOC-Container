@@ -6,10 +6,14 @@ export default class IOCContainer {
   }
 
   public register(moduleKey: string, moduleClass): void {
-    this.registeredTypes[moduleKey] = {
-      moduleClass,
-      dependencies: []
-    };
+    if (!this.registeredTypes[moduleKey]) {
+      this.registeredTypes[moduleKey] = {
+        moduleClass,
+        dependencies: []
+      };
+    } else {
+      this.registeredTypes[moduleKey].moduleClass = moduleClass;
+    }
   }
 
   public bindDependency(
