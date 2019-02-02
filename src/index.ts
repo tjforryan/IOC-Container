@@ -32,8 +32,18 @@ export default class IOCContainer {
     this.registeredTypes[parentModuleKey].dependencies[index] = childModuleKey;
   }
 
-  public resolve(moduleKey: string): object {
+  public resolve(moduleKey: string, dependencyChain: string[] = []): object {
     const moduleToResolve = this.registeredTypes[moduleKey];
+
+    if (dependencyChain.includes(moduleKey)) {
+      throw new Error(
+        `Circular dependency detected: ${dependencyChain.join(
+          ' -> '
+        )} -> ${moduleKey}`
+      );
+    }
+
+    const newDependencyChain = [...dependencyChain, moduleKey];
 
     if (!moduleToResolve) {
       throw new Error(
@@ -42,7 +52,7 @@ export default class IOCContainer {
     }
 
     const { moduleClass, dependencies } = moduleToResolve;
-    const args = dependencies.map(key => this.resolve(key));
+    const args = dependencies.map(key => this.resolve(key, newDependencyChain));
 
     return new moduleClass(...args);
   }

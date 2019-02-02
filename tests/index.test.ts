@@ -4,6 +4,7 @@ import IOCContainer from '../src/index';
 import Salad from '../examples/classes/Salad';
 import Sauce from '../examples/classes/Sauce';
 import Sandwich from '../examples/classes/Sandwich';
+import Pizza from '../examples/classes/Pizza';
 import FancyRestaurant from '../examples/classes/FancyRestaurant';
 import { Dish, Restaurant } from '../examples/examples';
 
@@ -113,6 +114,44 @@ describe('IOCContainer', () => {
         container.bindDependency(TEST_KEY, DEPENDENCY_KEY, 0)
       ).to.throw(
         `Attempted to bind unregistered parent module, with key: ${TEST_KEY}`
+      );
+    });
+
+    it('will error on simple circular dependencies', () => {
+      const container = new IOCContainer();
+      const TEST_KEY_1 = 'TEST_KEY_1';
+      const TEST_KEY_2 = 'TEST_KEY_2';
+
+      container.register(TEST_KEY_1, Salad);
+      container.register(TEST_KEY_2, Sandwich);
+
+      container.bindDependency(TEST_KEY_1, TEST_KEY_2, 0);
+      container.bindDependency(TEST_KEY_2, TEST_KEY_1, 0);
+
+      expect(() => container.resolve(TEST_KEY_1)).to.throw(
+        `Circular dependency detected: ${TEST_KEY_1} -> ${TEST_KEY_2} -> ${TEST_KEY_1}`
+      );
+    });
+
+    it('will error on more complex circular dependencies', () => {
+      const container = new IOCContainer();
+      const TEST_KEY_1 = 'TEST_KEY_1';
+      const TEST_KEY_2 = 'TEST_KEY_2';
+      const TEST_KEY_3 = 'TEST_KEY_3';
+      const TEST_KEY_4 = 'TEST_KEY_4';
+
+      container.register(TEST_KEY_1, Salad);
+      container.register(TEST_KEY_2, Sandwich);
+      container.register(TEST_KEY_3, Sauce);
+      container.register(TEST_KEY_4, Pizza);
+
+      container.bindDependency(TEST_KEY_1, TEST_KEY_2, 0);
+      container.bindDependency(TEST_KEY_2, TEST_KEY_3, 0);
+      container.bindDependency(TEST_KEY_2, TEST_KEY_4, 0);
+      container.bindDependency(TEST_KEY_4, TEST_KEY_1, 0);
+
+      expect(() => container.resolve(TEST_KEY_1)).to.throw(
+        `Circular dependency detected: ${TEST_KEY_1} -> ${TEST_KEY_2} -> ${TEST_KEY_4} -> ${TEST_KEY_1}`
       );
     });
   });
