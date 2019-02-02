@@ -6,7 +6,7 @@ export default class FancyRestaurant implements Restaurant {
     this.special = special;
   }
 
-  public serveOrder(): void {
-    console.info(`Served ${this.special.serve()} - but in style!`);
+  public serveOrder(): string {
+    return `Served ${this.special.serve()} - but in style!`;
   }
 }

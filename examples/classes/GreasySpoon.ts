@@ -6,9 +6,7 @@ export default class GreasySpoon implements Restaurant {
     this.special = special;
   }
 
-  public serveOrder(): void {
-    console.info(
-      `Handed over ${this.special.serve()}, shining from too much grease!`
-    );
+  public serveOrder(): string {
+    return `Handed over ${this.special.serve()}, shining from too much grease!`;
   }
 }

@@ -9,5 +9,5 @@ export interface Dish {
 
 export interface Restaurant {
   special: Dish;
-  serveOrder(): void;
+  serveOrder(): string;
 }
