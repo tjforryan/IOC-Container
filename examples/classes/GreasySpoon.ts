@@ -2,11 +2,15 @@ import { Dish, Restaurant } from '../examples';
 
 export default class GreasySpoon implements Restaurant {
   public special: Dish;
-  public constructor(special: Dish) {
+  public chefName: string;
+  public constructor(chefName: string, special: Dish) {
     this.special = special;
+    this.chefName = chefName;
   }
 
   public serveOrder(): string {
-    return `Handed over ${this.special.serve()}, shining from too much grease!`;
+    return `${
+      this.chefName
+    } handed over ${this.special.serve()}, shining from too much grease!`;
   }
 }

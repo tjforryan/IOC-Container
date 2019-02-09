@@ -9,5 +9,6 @@ export interface Dish {
 
 export interface Restaurant {
   special: Dish;
+  chefName: string;
   serveOrder(): string;
 }

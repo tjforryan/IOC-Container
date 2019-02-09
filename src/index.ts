@@ -1,18 +1,36 @@
 export default class IOCContainer {
-  private registeredTypes;
+  private registeredDeps: {
+    [moduleKey: string]: {
+      type: 'class' | 'var';
+      dependency: any;
+      subDependencies?: string[];
+    };
+  };
 
   public constructor() {
-    this.registeredTypes = {};
+    this.registeredDeps = {};
   }
 
-  public register(moduleKey: string, moduleClass): void {
-    if (!this.registeredTypes[moduleKey]) {
-      this.registeredTypes[moduleKey] = {
-        moduleClass,
-        dependencies: []
+  public registerClass(moduleKey: string, dependency): void {
+    if (!this.registeredDeps[moduleKey]) {
+      this.registeredDeps[moduleKey] = {
+        type: 'class',
+        dependency,
+        subDependencies: []
       };
     } else {
-      this.registeredTypes[moduleKey].moduleClass = moduleClass;
+      this.registeredDeps[moduleKey].dependency = dependency;
+    }
+  }
+
+  public registerVar(moduleKey: string, dependency): void {
+    if (!this.registeredDeps[moduleKey]) {
+      this.registeredDeps[moduleKey] = {
+        type: 'var',
+        dependency
+      };
+    } else {
+      this.registeredDeps[moduleKey].dependency = dependency;
     }
   }
 
@@ -21,23 +39,31 @@ export default class IOCContainer {
     childModuleKey: string,
     index: number
   ): void {
-    if (!this.registeredTypes[parentModuleKey]) {
+    if (!this.registeredDeps[parentModuleKey]) {
       throw new Error(
         `Attempted to bind unregistered parent module, with key: ${parentModuleKey}`
       );
     }
 
-    if (!this.registeredTypes[childModuleKey]) {
+    if (!this.registeredDeps[childModuleKey]) {
       throw new Error(
         `Attempted to bind unregistered child module, with key: ${childModuleKey}`
       );
     }
 
-    this.registeredTypes[parentModuleKey].dependencies[index] = childModuleKey;
+    if (this.registeredDeps[parentModuleKey].type !== 'class') {
+      throw new Error(
+        `Attempted to bind non-class parent module, with key: ${parentModuleKey}`
+      );
+    }
+
+    this.registeredDeps[parentModuleKey].subDependencies[
+      index
+    ] = childModuleKey;
   }
 
   public resolve(moduleKey: string, dependencyChain: string[] = []): object {
-    const moduleToResolve = this.registeredTypes[moduleKey];
+    const moduleToResolve = this.registeredDeps[moduleKey];
 
     if (dependencyChain.includes(moduleKey)) {
       throw new Error(
@@ -55,9 +81,16 @@ export default class IOCContainer {
       );
     }
 
-    const { moduleClass, dependencies } = moduleToResolve;
-    const args = dependencies.map(key => this.resolve(key, newDependencyChain));
+    const { dependency, subDependencies, type } = moduleToResolve;
 
-    return new moduleClass(...args);
+    if (type === 'var') {
+      return dependency;
+    }
+
+    const args = subDependencies.map(key =>
+      this.resolve(key, newDependencyChain)
+    );
+
+    return new dependency(...args);
   }
 }
