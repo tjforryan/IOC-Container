@@ -1,11 +1,13 @@
 {
   "name": "ioc-container",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/tjforryan/IOC-Container.git",
   "author": "Tom Forryan <tjforryan@yahoo.co.uk>",
   "license": "MIT",
   "scripts": {
+    "build": "tsc",
     "exampleContainer": "ts-node examples/usingContainer.ts",
     "exampleNested": "ts-node examples/nestedInjection.ts",
     "lint": "eslint '**/*.ts' --fix",
