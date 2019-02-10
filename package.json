@@ -7,6 +7,7 @@
   "author": "Tom Forryan <tjforryan@yahoo.co.uk>",
   "license": "MIT",
   "scripts": {
+    "prepublish": "yarn test && yarn build",
     "build": "tsc",
     "exampleContainer": "ts-node examples/usingContainer.ts",
     "exampleNested": "ts-node examples/nestedInjection.ts",
