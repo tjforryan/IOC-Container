@@ -4,6 +4,7 @@ My IoC Container
 > A simple IoC (Inversion of Control) Container, using Dependency Injection
 
 ## Installation
+You can see the package [on npm](https://www.npmjs.com/package/@tjforryan/ioc-container)
 ```bash
 npm i --save @tjforryan/ioc-container
 yarn add @tjforryan/ioc-container
@@ -70,9 +71,10 @@ There are two ways to add dependencies, depending on how you want them to be inj
 * Once a dependency is registered, if another dependency is registered with the same key it will overwrite the original.  This can allow for hot-swapping of dependencies.
 * It's recommended that keys exist, as constants, in some central location.  This will help to prevent mistakes or even collisions.
 * If multiple modules need the same class dependency injected these will be separate instances.  If your class isn't a singleton and it is important that only one instance is used and  you can do this by instantiating it yourself and using `container.registerVar` instead of `container.registerClass`.
+* The package has a generated type declaration file. for use with Typescript.
 
 ### Example
-* The classes used below can be found under `/examples`.
+* The classes used below can be found under [`/examples`](https://github.com/tjforryan/IOC-Container/tree/master/examples).
 * This IoC container is aimed at abstracting away dependency issues, when dependency management has become complex and hard to maintain.  This is only a toy example and, although it demonstrates its usage, is not representative of the best times to use this package.  This simpler example is used purely for readability.
 
 ```javascript
