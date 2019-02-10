@@ -63,11 +63,11 @@ There are two ways to add dependencies, depending on how you want them to be inj
 
 ##### `container.resolve(<key>)`
 * If the key refers to a non-class dependency (one registered using `container.registerVar`), that value will be returned.
-* If the key refers to a class dependency (one registered using `container.registerClass`), first any sub-dependencies will be resolved (perhaps recursing through multiple levels).  Then a new instance of the class registered for this dependency will be returned, with the resolved sub-dependecies being passed in to the constructor. 
+* If the key refers to a class dependency (one registered using `container.registerClass`), first any sub-dependencies will be resolved (perhaps recursing through multiple levels).  Then a new instance of the class registered for this dependency will be returned, with the resolved sub-dependencies being passed in to the constructor. 
 * `<key>` is a string that refers to the dependency that will be retrieved from the container.
 
 ### Notes on usage
-* Circular dependencies are not supported.  Instead, when attempting to resolve one, the container will error, with information to help identify wherethe circular dependency is.
+* Circular dependencies are not supported.  Instead, when attempting to resolve one, the container will error, with information to help identify where the circular dependency is.
 * Once a dependency is registered, if another dependency is registered with the same key it will overwrite the original.  This can allow for hot-swapping of dependencies.
 * It's recommended that keys exist, as constants, in some central location.  This will help to prevent mistakes or even collisions.
 * If multiple modules need the same class dependency injected these will be separate instances.  If your class isn't a singleton and it is important that only one instance is used and  you can do this by instantiating it yourself and using `container.registerVar` instead of `container.registerClass`.
@@ -107,8 +107,8 @@ container.bindDependency(KEYS.RESTAURANT, KEYS.DISH, 1);
 container.bindDependency(KEYS.DISH, KEYS.INGREDIENT, 0);
 
 // Here the top level module is resolved, with its dependencies resolved for it.
-// In this case the restaurant resolves as an instance of the FanyRestaurant class.
+// In this case the restaurant resolves as an instance of the FancyRestaurant class.
 // It receives the string 'Pierre' and an instance of the Sandwich class.
-// The Sandwich clas in turn has had its own dependencies resolved, before instantiation.
+// The Sandwich class in turn has had its own dependencies resolved, before instantiation.
 const restaurant = container.resolve(KEYS.RESTAURANT);
 ```
